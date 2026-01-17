@@ -19,6 +19,11 @@ public class UserController {
         this.userService= userService;
     }
 
+    @GetMapping("/me")
+    public String me() {
+        return "You are authenticated 🎉";
+    }
+
     @PostMapping
     public UserResponseDto createUser(@Valid @RequestBody UserRequestDto dto){
         return userService.createUser(dto);

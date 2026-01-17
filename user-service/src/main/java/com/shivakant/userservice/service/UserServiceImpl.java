@@ -4,6 +4,7 @@ import com.shivakant.userservice.dto.AuthResponseDto;
 import com.shivakant.userservice.dto.LoginRequestDto;
 import com.shivakant.userservice.dto.UserRequestDto;
 import com.shivakant.userservice.dto.UserResponseDto;
+import com.shivakant.userservice.entity.Role;
 import com.shivakant.userservice.entity.User;
 import com.shivakant.userservice.exception.InvalidCredentialsException;
 import com.shivakant.userservice.exception.UserAlreadyExistsException;
@@ -36,7 +37,8 @@ public class UserServiceImpl implements UserService{
                dto.getName(),
                dto.getEmail(),
                passwordEncoder.encode(dto.getPassword()),
-               dto.getPhone()
+               dto.getPhone(),
+               Role.USER
        );
        User saved = userRepository.save(user);
        return mapToResponse(saved);
@@ -78,7 +80,7 @@ public class UserServiceImpl implements UserService{
             throw new InvalidCredentialsException("Invalid credentials");
         }
 
-        String token = jwtUtil.generateToken(dto.getEmail());
+        String token = jwtUtil.generateToken(user);
         return new AuthResponseDto(token);
     }
 
@@ -88,7 +90,8 @@ public class UserServiceImpl implements UserService{
                 user.getId(),
                 user.getName(),
                 user.getEmail(),
-                user.getPhone()
+                user.getPhone(),
+                user.getRole().name()
         );
     }
 }

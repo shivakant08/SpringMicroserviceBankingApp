@@ -2,6 +2,8 @@ package com.shivakant.userservice.entity;
 
 import jakarta.persistence.*;
 
+
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -20,15 +22,20 @@ public class User {
 
     private String phone;
 
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private Role role;
+
     protected User() {
         // JPA only
     }
 
-    public User(String name, String email, String password, String phone){
+    public User(String name, String email, String password, String phone, Role role){
         this.name = name;
         this.email = email;
         this.password = password;
         this.phone = phone;
+        this.role= role;
     }
 
     public Long getId(){
@@ -69,5 +76,13 @@ public class User {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }
