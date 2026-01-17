@@ -1,7 +1,10 @@
 package com.shivakant.userservice.controller;
 
+import com.shivakant.userservice.dto.UserRequestDto;
+import com.shivakant.userservice.dto.UserResponseDto;
 import com.shivakant.userservice.entity.User;
 import com.shivakant.userservice.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,17 +20,17 @@ public class UserController {
     }
 
     @PostMapping
-    public User createUser(@RequestBody User user){
-        return userService.createUser(user);
+    public UserResponseDto createUser(@Valid @RequestBody UserRequestDto dto){
+        return userService.createUser(dto);
     }
 
     @GetMapping
-    public List<User> getAllUsers(){
+    public List<UserResponseDto> getAllUsers(){
         return userService.getAllUsers();
     }
 
     @GetMapping("/{id}")
-    public User getUserById(@PathVariable Long id){
+    public UserResponseDto getUserById(@PathVariable Long id){
         return  userService.getUserById(id);
     }
 

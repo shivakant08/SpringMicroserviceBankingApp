@@ -20,6 +20,10 @@ public class User {
 
     private String phone;
 
+    protected User() {
+        // JPA only
+    }
+
     public User(String name, String email, String password, String phone){
         this.name = name;
         this.email = email;
